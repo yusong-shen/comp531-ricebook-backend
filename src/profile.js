@@ -65,7 +65,7 @@ const getAvatars = (req, res) => {
 	console.log(req.params.user)
 	res.send({
 		username : 'ys004',
-		avatar : 'hard-coded avatar'
+		avatar : 'hard-coded-avatar'
 	})	
 }
 // PUT /avatar
@@ -76,6 +76,14 @@ const putAvatar = (req, res) => {
 	})
 }
 
+// GET /dob
+const getDob = (req, res) => {
+	res.send({
+		username : 'loggedInUser',
+		dob : new Date().getTime()	
+	})		
+}
+
 module.exports = app => {
      app.get('/headlines/:user?', getHeadlines)
      app.put('/headline', putHeadline)
@@ -84,5 +92,7 @@ module.exports = app => {
      app.get('/zipcode/:user?', getZipcode)
      app.put('/zipcode', putZipcode)
      app.get('/avatars/:user?', getAvatars)
-     app.put('/avatar', putAvatar)     
+     app.put('/avatar', putAvatar)
+     app.get('/dob', getDob)
+ 
 }
