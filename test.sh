@@ -59,8 +59,53 @@ curl -H 'Content-Type: application/json' http://localhost:${PORT}/headlines
 echo ""
 echo ""
 
+echo "GET /email"
+curl -H 'Content-Type: application/json' http://localhost:${PORT}/email
+echo ""
+echo ""
+
+echo "PUT /email"
+curl -H 'Content-Type: application/json' http://localhost:${PORT}/email -X PUT -d '{"email" : "gg@gm.com"}' -i
+echo ""
+echo ""
+
+echo "GET /email"
+curl -H 'Content-Type: application/json' http://localhost:${PORT}/email
+echo ""
+echo ""
+
 echo "GET /zipcode"
 curl -H 'Content-Type: application/json' http://localhost:${PORT}/zipcode
+echo ""
+echo ""
+
+echo "PUT /zipcode"
+curl -H 'Content-Type: application/json' http://localhost:${PORT}/zipcode -X PUT -d '{"zipcode" : "12322"}' -i
+echo ""
+echo ""
+
+echo "GET /zipcode"
+curl -H 'Content-Type: application/json' http://localhost:${PORT}/zipcode
+echo ""
+echo ""
+
+echo "GET /avatars/sep1,sep1test"
+curl -H 'Content-Type: application/json' http://localhost:${PORT}/avatars/sep1,sep1test
+echo ""
+echo ""
+
+echo "GET /avatars"
+curl -H 'Content-Type: application/json' http://localhost:${PORT}/avatars
+echo ""
+echo ""
+
+echo "PUT /avatar"
+curl -H 'Content-Type: application/json' http://localhost:${PORT}/avatar -X PUT -d '{"avatar" : "hard-coded.jpg"}' -i
+echo ""
+echo ""
+
+echo "GET /avatars"
+curl -H 'Content-Type: application/json' http://localhost:${PORT}/avatars
 echo ""
 echo ""
 

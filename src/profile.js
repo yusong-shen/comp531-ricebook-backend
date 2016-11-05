@@ -1,25 +1,34 @@
-const profile = {
-    username: 'ys004',
-    headline: 'This is my headline!',
-    email: 'foo@bar.com',
-    zipcode: 12345,
-    avatar: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/4e/DWLeebron.jpg/220px-DWLeebron.jpg',
-}
+const profiles = {
+    'ys004' : {
+        headline: 'This is my headline!',
+        email: 'foo@bar.com',
+        zipcode: 12345,
+        avatar: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/4e/DWLeebron.jpg/220px-DWLeebron.jpg',
 
-const headlines = {
-    'ys004' : 'This is my headline!',
-    'sep1' : 'hard-coded headline 002',
-    'sep1test' : 'hard-coded headline 003'
-}
+    },
+    'sep1' : {
+        headline: 'hard-coded headline 002',
+        email: 'foo@bar.com',
+        zipcode: 12345,
+        avatar: 'hard-coded avatar 002',
 
+    },
+    'sep1test' : {
+        headline: 'hard-coded headline 003',
+        email: 'foo@bar.com',
+        zipcode: 12345,
+        avatar: 'hard-coded avatar 003',
+
+    }
+}
 
 // PUT /headline
 const putHeadline = (req, res) => {
     const user = 'ys004'
-    headlines[user] = req.body.headline || 'you did not supply it'
+    profiles[user].headline = req.body.headline || 'you did not supply it'
 	res.send({ headlines : [{
 		username : 'ys004',
-		headline : headlines[user]
+		headline : profiles[user].headline
 	}]})
 }
 
@@ -37,7 +46,7 @@ const getHeadlines = (req, res) => {
     // each user has a default value.  Only the "req.user" value ever changes.
     const result = users.map((x) => ({
         username : x,
-        headline: headlines[x]
+        headline: profiles[x].headline
     }))
     res.send({ headlines: result })
 
@@ -45,52 +54,67 @@ const getHeadlines = (req, res) => {
 
 // GET /email/:user?
 const getEmail = (req, res) => {
-	console.log(req.params.user)
+    if (!req.user) req.user = 'ys004'
+    const user = req.user
 	res.send({
-		username : 'ys004',
-		email : 'hard-coded@foo.com'
+		username : user,
+		email : profiles[user].email
 	})	
 }
 
 // PUT /email
 const putEmail = (req, res) => {
-	res.send({
-		username : 'ys004',
-		email : req.body.email || 'you did not supply it'
-	})
+    if (!req.user) req.user = 'ys004'
+    const user = req.user
+    profiles[user].email = req.body.email || 'you did not supply it'
+    res.send({
+        username : user,
+        email : profiles[user].email
+    })
 }
 
 // GET /zipcode/:user? 
 const getZipcode = (req, res) => {
-	console.log(req.params.user)
-	res.send({
-		username : 'ys004',
-		zipcode : '77005'
-	})	
+    if (!req.user) req.user = 'ys004'
+    const user = req.user
+    res.send({
+        username : user,
+        zipcode : profiles[user].zipcode
+    })
 }
 
 // PUT /zipcode
 const putZipcode = (req, res) => {
-	res.send({
-		username : 'ys004',
-		zipcode : req.body.zipcode || 'you did not supply it'
-	})
+    if (!req.user) req.user = 'ys004'
+    const user = req.user
+    profiles[user].zipcode = req.body.zipcode || 'you did not supply it'
+    res.send({
+        username : user,
+        zipcode : profiles[user].zipcode
+    })
 }
 
 // GET /avatars/:user? 
 const getAvatars = (req, res) => {
-	console.log(req.params.user)
-	res.send({
-		username : 'ys004',
-		avatar : 'hard-coded-avatar'
-	})	
+    if (!req.user) req.user = 'ys004'
+    const users = req.params.user ? req.params.user.split(',') : [req.user]
+    const result = users.map((x) => ({
+        username : x,
+        avatar: profiles[x].avatar
+    }))
+    res.send({
+        avatars : result
+    })
 }
 // PUT /avatar
 const putAvatar = (req, res) => {
-	res.send({
-		username : 'ys004',
-		avatar : req.body.avatar || 'you did not supply it'
-	})
+    if (!req.user) req.user = 'ys004'
+    const user = req.user
+    profiles[user].avatar = req.body.avatar || 'you did not supply it'
+    res.send({
+        username : user,
+        avatar : profiles[user].avatar
+    })
 }
 
 // GET /dob
