@@ -1,38 +1,49 @@
 /**
  * Created by yusong on 10/25/16.
  */
-let following = { 
-      username: 'loginUser',
-      following: ['ys004', 'sep1', 'unknownUser', 'blabla']
+let followings = {
+    followings : [
+        {
+            username: 'loginUser',
+            following: ['ys004', 'sep1', 'unknownUser', 'blabla']
+        }
+    ]
     }
 
-// TODO
+// PUT /following/:user
 const updateFollowing = (req, res) => {
-     res.send('update following')
+    // const id = 'loginUser'
+    const user = req.params.user
+    followings.followings[0].following.push(user)
+    res.send(followings.followings[0])
 }
 
 
-// TODO
+// DELETE /following/:user
 const deleteFollowing = (req, res) => {
-     console.log('Payload received', req.body)
-     res.send('delete following')
+    // const id = 'loginUser'
+    const user = req.params.user
+    const prevArr = followings.followings[0].following
+    followings.followings[0].following = prevArr.filter(item => item !== user)
+    res.send(followings.followings[0])
 }
 
-// TODO
+// get the list of users being followed by the requested user
+// default to logged in user
 const getFollowing = (req, res) => {
-    const id = req.params.id
-    if (!id) {
-        res.send(following)
+    const id = req.params.user || 'loginUser'
+    const result = followings.followings.filter(x => x.username === id)
+    if (result.length >= 1) {
+        res.send(result[0])
     } else {
-    	const result = {}
-    	result.following = following.following.filter(x => (x.id == id))
-        res.send(result)
+        res.send({})
     }
+
 }
 
 
 module.exports = (app) => {
-  app.delete('/following/:id', deleteFollowing)
-	app.put('/following/:id', updateFollowing)
-	app.get('/following/:id*?', getFollowing)
+    app.delete('/following/:user', deleteFollowing)
+	app.put('/following/:user', updateFollowing)
+	app.get('/following/:user*?', getFollowing)
 }
