@@ -61,7 +61,10 @@ const getHeadlines = (req, res) => {
                 headline : profiles[x].headline
             }
         } else {
-            return undefined
+            return {
+                username : x,
+                headline : `random headline for ${x}`
+            }
         }
     })
     res.send({ headlines: result })
@@ -130,7 +133,10 @@ const getAvatars = (req, res) => {
                 avatar : profiles[x].avatar
             }
         } else {
-            return undefined
+            return {
+                username : x,
+                headline : `random avatar for ${x}`
+            }
         }
     })
     res.send({ avatars: result })
