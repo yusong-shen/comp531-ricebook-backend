@@ -33,10 +33,13 @@ const profiles = {
 const putHeadline = (req, res) => {
     const user = 'ys004'
     profiles[user].headline = req.body.headline || 'you did not supply it'
-	res.send({ headlines : [{
-		username : 'ys004',
-		headline : profiles[user].headline
-	}]})
+    if (profiles[user]) {
+        res.send({ headlines : [{
+            username : 'ys004',
+            headline : profiles[user].headline
+        }]})
+    }
+
 }
 
 // GET /headlines/ys004
@@ -51,10 +54,16 @@ const getHeadlines = (req, res) => {
 
     // Implement the logic to return headlines for all requested users
     // each user has a default value.  Only the "req.user" value ever changes.
-    const result = users.map((x) => ({
-        username : x,
-        headline: profiles[x].headline
-    }))
+    const result = users.map((x) => {
+        if (profiles[x]) {
+            return {
+                username : x,
+                headline : profiles[x].headline
+            }
+        } else {
+            return undefined
+        }
+    })
     res.send({ headlines: result })
 
 }
@@ -63,65 +72,80 @@ const getHeadlines = (req, res) => {
 const getEmail = (req, res) => {
     if (!req.user) req.user = 'ys004'
     const user = req.params.user ? req.params.user : req.user
-	res.send({
-		username : user,
-		email : profiles[user].email
-	})	
+    if (profiles[user]) {
+        res.send({
+            username : user,
+            email : profiles[user].email
+        })
+    }
 }
 
 // PUT /email
 const putEmail = (req, res) => {
     if (!req.user) req.user = 'ys004'
     const user = req.user
-    profiles[user].email = req.body.email || 'you did not supply it'
-    res.send({
-        username : user,
-        email : profiles[user].email
-    })
+    if (profiles[user]) {
+        profiles[user].email = req.body.email || 'you did not supply it'
+        res.send({
+            username : user,
+            email : profiles[user].email
+        })
+    }
 }
 
 // GET /zipcode/:user? 
 const getZipcode = (req, res) => {
     if (!req.user) req.user = 'ys004'
     const user = req.params.user ? req.params.user : req.user
-    res.send({
-        username : user,
-        zipcode : profiles[user].zipcode
-    })
+    if (profiles[user]) {
+        res.send({
+            username : user,
+            zipcode : profiles[user].zipcode
+        })
+    }
 }
 
 // PUT /zipcode
 const putZipcode = (req, res) => {
     if (!req.user) req.user = 'ys004'
     const user = req.user
-    profiles[user].zipcode = req.body.zipcode || 'you did not supply it'
-    res.send({
-        username : user,
-        zipcode : profiles[user].zipcode
-    })
+    if (profiles[user]) {
+        profiles[user].zipcode = req.body.zipcode || 'you did not supply it'
+        res.send({
+            username : user,
+            zipcode : profiles[user].zipcode
+        })
+    }
 }
 
 // GET /avatars/:user? 
 const getAvatars = (req, res) => {
     if (!req.user) req.user = 'ys004'
     const users = req.params.user ? req.params.user.split(',') : [req.user]
-    const result = users.map((x) => ({
-        username : x,
-        avatar: profiles[x].avatar
-    }))
-    res.send({
-        avatars : result
+    // each user has a default value.  Only the "req.user" value ever changes.
+    const result = users.map((x) => {
+        if (profiles[x]) {
+            return {
+                username : x,
+                avatar : profiles[x].avatar
+            }
+        } else {
+            return undefined
+        }
     })
+    res.send({ avatars: result })
 }
 // PUT /avatar
 const putAvatar = (req, res) => {
     if (!req.user) req.user = 'ys004'
     const user = req.user
-    profiles[user].avatar = req.body.avatar || 'you did not supply it'
-    res.send({
-        username : user,
-        avatar : profiles[user].avatar
-    })
+    if (profiles[user]) {
+        profiles[user].avatar = req.body.avatar || 'you did not supply it'
+        res.send({
+            username : user,
+            avatar : profiles[user].avatar
+        })
+    }
 }
 
 // GET /dob

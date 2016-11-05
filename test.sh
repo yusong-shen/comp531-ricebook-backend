@@ -49,6 +49,11 @@ curl -H 'Content-Type: application/json' http://localhost:${PORT}/headlines/sep1
 echo ""
 echo ""
 
+echo "GET /headlines/sep1,wrong"
+curl -H 'Content-Type: application/json' http://localhost:${PORT}/headlines/sep1,wrong
+echo ""
+echo ""
+
 echo "PUT /headline"
 curl -H 'Content-Type: application/json' http://localhost:${PORT}/headline -X PUT -d '{"headline" : "happy"}' -i
 echo ""
@@ -91,6 +96,11 @@ echo ""
 
 echo "GET /avatars/sep1,sep1test"
 curl -H 'Content-Type: application/json' http://localhost:${PORT}/avatars/sep1,sep1test
+echo ""
+echo ""
+
+echo "GET /avatars/sep1,wrong"
+curl -H 'Content-Type: application/json' http://localhost:${PORT}/avatars/sep1,wrong
 echo ""
 echo ""
 
