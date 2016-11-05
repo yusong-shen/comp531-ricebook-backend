@@ -1,28 +1,45 @@
-var headlines = { headlines : [{
-			username : 'ys004',
-			headline : 'h1!'
-		}, {
-			username : 'sep1',
-			headline : 'h2!'
-		}
-	]}
+const profile = {
+    username: 'ys004',
+    headline: 'This is my headline!',
+    email: 'foo@bar.com',
+    zipcode: 12345,
+    avatar: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/4e/DWLeebron.jpg/220px-DWLeebron.jpg',
+}
+
+const headlines = {
+    'ys004' : 'This is my headline!',
+    'sep1' : 'hard-coded headline 002',
+    'sep1test' : 'hard-coded headline 003'
+}
 
 
 // PUT /headline
 const putHeadline = (req, res) => {
+    const user = 'ys004'
+    headlines[user] = req.body.headline || 'you did not supply it'
 	res.send({ headlines : [{
 		username : 'ys004',
-		headline : req.body.headline || 'you did not supply it'
+		headline : headlines[user]
 	}]})
 }
 
 // GET /headlines/ys004
 const getHeadlines = (req, res) => {
-	console.log(req.params.user)
-	res.send({
-		username : 'ys004',
-		headline : 'hard-coded headline'
-	})
+    // for now we provide a default
+    if (!req.user) req.user = 'ys004'
+
+    const users = req.params.users ? req.params.users.split(',') : [req.user]
+
+    // this returns only one headline, but we want to send
+    // an array of all the requested user's headlines
+
+    // Implement the logic to return headlines for all requested users
+    // each user has a default value.  Only the "req.user" value ever changes.
+    const result = users.map((x) => ({
+        username : x,
+        headline: headlines[x]
+    }))
+    res.send({ headlines: result })
 
 }
 
@@ -85,7 +102,7 @@ const getDob = (req, res) => {
 }
 
 module.exports = app => {
-     app.get('/headlines/:user?', getHeadlines)
+     app.get('/headlines/:users*?', getHeadlines)
      app.put('/headline', putHeadline)
      app.get('/email/:user?', getEmail)
      app.put('/email', putEmail)

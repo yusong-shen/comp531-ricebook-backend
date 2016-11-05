@@ -39,16 +39,35 @@ PORT=3000
 # profile.js
 # ===============================================================================
 
+echo "GET /headlines"
+curl -H 'Content-Type: application/json' http://localhost:${PORT}/headlines
+echo ""
+echo ""
 
-# echo "GET /zipcode"
-# curl -H 'Content-Type: application/json' http://localhost:${PORT}/zipcode
-# echo ""
-# echo ""
+echo "GET /headlines/sep1,sep1test"
+curl -H 'Content-Type: application/json' http://localhost:${PORT}/headlines/sep1,sep1test
+echo ""
+echo ""
 
-# echo "GET /dob"
-# curl -H 'Content-Type: application/json' http://localhost:${PORT}/dob
-# echo ""
-# echo ""
+echo "PUT /headline"
+curl -H 'Content-Type: application/json' http://localhost:${PORT}/headline -X PUT -d '{"headline" : "happy"}' -i
+echo ""
+echo ""
+
+echo "GET /headlines"
+curl -H 'Content-Type: application/json' http://localhost:${PORT}/headlines
+echo ""
+echo ""
+
+echo "GET /zipcode"
+curl -H 'Content-Type: application/json' http://localhost:${PORT}/zipcode
+echo ""
+echo ""
+
+echo "GET /dob"
+curl -H 'Content-Type: application/json' http://localhost:${PORT}/dob
+echo ""
+echo ""
 
 # ===============================================================================
 # auth.js
@@ -94,23 +113,23 @@ PORT=3000
 # following.js
 # ===============================================================================
 
-echo "GET /following"
-curl -H 'Content-Type: application/json' http://localhost:${PORT}/following
-echo ""
-echo ""
+# echo "GET /following"
+# curl -H 'Content-Type: application/json' http://localhost:${PORT}/following
+# echo ""
+# echo ""
 
-echo "GET /following"
-curl -H 'Content-Type: application/json' http://localhost:${PORT}/following/foo
-echo ""
-echo ""
+# echo "GET /following"
+# curl -H 'Content-Type: application/json' http://localhost:${PORT}/following/foo
+# echo ""
+# echo ""
 
 
-echo "PUT /following"
-curl -H 'Content-Type: application/json' http://localhost:${PORT}/following/foo -X PUT -i
-echo ""
-echo ""
+# echo "PUT /following"
+# curl -H 'Content-Type: application/json' http://localhost:${PORT}/following/foo -X PUT -i
+# echo ""
+# echo ""
 
-echo "DELETE /following"
-curl -H 'Content-Type: application/json' http://localhost:${PORT}/following/sep1 -X DELETE -i
-echo ""
-echo ""
+# echo "DELETE /following"
+# curl -H 'Content-Type: application/json' http://localhost:${PORT}/following/sep1 -X DELETE -i
+# echo ""
+# echo ""
