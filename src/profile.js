@@ -34,10 +34,10 @@ const putHeadline = (req, res) => {
     const user = 'ys004'
     profiles[user].headline = req.body.headline || 'you did not supply it'
     if (profiles[user]) {
-        res.send({ headlines : [{
+        res.send({
             username : 'ys004',
             headline : profiles[user].headline
-        }]})
+        })
     }
 
 }

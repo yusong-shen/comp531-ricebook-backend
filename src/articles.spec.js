@@ -83,9 +83,10 @@ describe('Validate Article functionality', () => {
 		// verify you get the article back with an id
 		// verify the content of the article
 		.then(body => {
-			expect(body.id).to.not.be.undefined
-			expect(body.text).to.eql('A post 6')
-			return body.id
+			console.log(body.articles)
+			expect(body.articles[0].id).to.not.be.undefined
+			expect(body.articles[0].text).to.eql('A post 6')
+			return body.articles[0].id
 		})
 		// add a second article
 		// verify the article id increases by one
@@ -102,8 +103,8 @@ describe('Validate Article functionality', () => {
 				return res.json()
 			})
 			.then(body => {
-				expect(body.id).to.eql(oldId + 1)
-				expect(body.text).to.eql('A post 7')
+				expect(body.articles[0].id).to.eql(oldId + 1)
+				expect(body.articles[0].text).to.eql('A post 7')
 			})
 		})
 		.then(done)

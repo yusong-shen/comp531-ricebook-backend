@@ -12,10 +12,11 @@ describe('Validate Hello Functionality', () => {
 		fetch(url("/"))
 		.then(res => {
 			expect(res.status).to.eql(200)	
-			return res.text()
+			return res.json()
 		})
 		.then(body => {
-			expect(body).to.eql("Hello Somebody!")
+			console.log(body)
+			expect(body['Hello ']).to.eql('Somebody')
 		})
 		.then(done)
 		.catch(done)
@@ -25,10 +26,10 @@ describe('Validate Hello Functionality', () => {
 		fetch(url('/Me'))
 		.then(res => {
 			expect(res.status).to.eql(200)
-			return res.text()
+			return res.json()
 		})
 		.then(body => {
-			expect(body).to.eql("Hello Me!")
+			expect(body['Hello ']).to.eql('Me')
 		})
 		.then(done)
 		.catch(done)
