@@ -19,6 +19,13 @@ const profiles = {
         zipcode: 12345,
         avatar: 'hard-coded avatar 003',
 
+    },
+    'ys43' : {
+        headline: 'hard-coded headline 004',
+        email: 'foo@bar.com',
+        zipcode: 12345,
+        avatar: 'hard-coded avatar 004',
+
     }
 }
 
@@ -55,7 +62,7 @@ const getHeadlines = (req, res) => {
 // GET /email/:user?
 const getEmail = (req, res) => {
     if (!req.user) req.user = 'ys004'
-    const user = req.user
+    const user = req.params.user ? req.params.user : req.user
 	res.send({
 		username : user,
 		email : profiles[user].email
@@ -76,7 +83,7 @@ const putEmail = (req, res) => {
 // GET /zipcode/:user? 
 const getZipcode = (req, res) => {
     if (!req.user) req.user = 'ys004'
-    const user = req.user
+    const user = req.params.user ? req.params.user : req.user
     res.send({
         username : user,
         zipcode : profiles[user].zipcode
@@ -119,8 +126,10 @@ const putAvatar = (req, res) => {
 
 // GET /dob
 const getDob = (req, res) => {
+    if (!req.user) req.user = 'ys004'
+    const user = req.user
 	res.send({
-		username : 'loggedInUser',
+		username : user,
 		dob : new Date().getTime()	
 	})		
 }
